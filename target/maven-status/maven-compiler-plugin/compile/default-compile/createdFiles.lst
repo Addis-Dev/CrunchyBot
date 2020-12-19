@@ -1,0 +1,9 @@
+main\java\firstbot\Bot.class
+Snake\SnakeGame.class
+main\java\anime\MyTimer.class
+Snake\SnakeGame$eDirection.class
+main\java\anime\AnimeNotification.class
+main\java\events\onMessageReceived.class
+main\java\anime\AnimeInfo.class
+main\java\anime\Anime.class
+main\java\events\onReactionReceived.class

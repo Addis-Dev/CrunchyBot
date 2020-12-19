@@ -1,0 +1,212 @@
+{
+  "data": {
+    "id": "42765",
+    "type": "anime",
+    "links": {
+      "self": "https://kitsu.io/api/edge/anime/42765"
+    },
+    "attributes": {
+      "createdAt": "2019-11-26T12:48:51.338Z",
+      "updatedAt": "2020-12-18T18:16:05.168Z",
+      "slug": "jujutsu-kaisen",
+      "synopsis": "In a world where demons feed on unsuspecting humans, fragments of the legendary and feared demon Ryoumen Sukuna were lost and scattered about. Should any demon consume Sukuna's body parts, the power they gain could destroy the world as we know it. Fortunately, there exists a mysterious school of Jujutsu Sorcerers who exist to protect the precarious existence of the living from the undead!Yuuji Itadori is high schooler who spends his days visiting his bedridden grandfather. Although he looks like your average teenager, his immense physical strength is something to behold! Every sports club wants him to join, but Itadori would rather hang out with the school outcasts in the Occult Club. One day, the club manages to get their hands on a sealed cursed object, but little do they know the terror they'll unleash when they break the seal...(Source: VIZ Media, edited)Episode 1 was streamed in advance on September 19, 2020. Regular broadcast began October 3, 2020.",
+      "description": "In a world where demons feed on unsuspecting humans, fragments of the legendary and feared demon Ryoumen Sukuna were lost and scattered about. Should any demon consume Sukuna's body parts, the power they gain could destroy the world as we know it. Fortunately, there exists a mysterious school of Jujutsu Sorcerers who exist to protect the precarious existence of the living from the undead!Yuuji Itadori is high schooler who spends his days visiting his bedridden grandfather. Although he looks like your average teenager, his immense physical strength is something to behold! Every sports club wants him to join, but Itadori would rather hang out with the school outcasts in the Occult Club. One day, the club manages to get their hands on a sealed cursed object, but little do they know the terror they'll unleash when they break the seal...(Source: VIZ Media, edited)Episode 1 was streamed in advance on September 19, 2020. Regular broadcast began October 3, 2020.",
+      "coverImageTopOffset": 0,
+      "titles": {
+        "en_jp": "Jujutsu Kaisen",
+        "ja_jp": "呪術廻戦"
+      },
+      "canonicalTitle": "Jujutsu Kaisen",
+      "abbreviatedTitles": [
+        "Sorcery Fight"
+      ],
+      "averageRating": "82.86",
+      "ratingFrequencies": {
+        "2": "131",
+        "3": "2",
+        "4": "5",
+        "5": "1",
+        "6": "4",
+        "7": "1",
+        "8": "174",
+        "9": "4",
+        "10": "14",
+        "11": "4",
+        "12": "31",
+        "13": "9",
+        "14": "347",
+        "15": "39",
+        "16": "249",
+        "17": "87",
+        "18": "227",
+        "19": "56",
+        "20": "1348"
+      },
+      "userCount": 14357,
+      "favoritesCount": 127,
+      "startDate": "2020-09-19",
+      "endDate": null,
+      "nextRelease": null,
+      "popularityRank": 802,
+      "ratingRank": 28,
+      "ageRating": "PG",
+      "ageRatingGuide": null,
+      "subtype": "TV",
+      "status": "current",
+      "tba": null,
+      "posterImage": {
+        "tiny": "https://media.kitsu.io/anime/poster_images/42765/tiny.jpg?1601027481",
+        "small": "https://media.kitsu.io/anime/poster_images/42765/small.jpg?1601027481",
+        "medium": "https://media.kitsu.io/anime/poster_images/42765/medium.jpg?1601027481",
+        "large": "https://media.kitsu.io/anime/poster_images/42765/large.jpg?1601027481",
+        "original": "https://media.kitsu.io/anime/poster_images/42765/original.jpg?1601027481",
+        "meta": {
+          "dimensions": {
+            "tiny": {
+              "width": 110,
+              "height": 156
+            },
+            "small": {
+              "width": 284,
+              "height": 402
+            },
+            "medium": {
+              "width": 390,
+              "height": 554
+            },
+            "large": {
+              "width": 550,
+              "height": 780
+            }
+          }
+        }
+      },
+      "coverImage": {
+        "tiny": "https://media.kitsu.io/anime/cover_images/42765/tiny.jpg?1601027485",
+        "small": "https://media.kitsu.io/anime/cover_images/42765/small.jpg?1601027485",
+        "large": "https://media.kitsu.io/anime/cover_images/42765/large.jpg?1601027485",
+        "original": "https://media.kitsu.io/anime/cover_images/42765/original.png?1601027485",
+        "meta": {
+          "dimensions": {
+            "tiny": {
+              "width": 840,
+              "height": 200
+            },
+            "small": {
+              "width": 1680,
+              "height": 400
+            },
+            "large": {
+              "width": 3360,
+              "height": 800
+            }
+          }
+        }
+      },
+      "episodeCount": 24,
+      "episodeLength": null,
+      "totalLength": 0,
+      "youtubeVideoId": "RIyb52EMx8c",
+      "showType": "TV",
+      "nsfw": false
+    },
+    "relationships": {
+      "genres": {
+        "links": {
+          "self": "https://kitsu.io/api/edge/anime/42765/relationships/genres",
+          "related": "https://kitsu.io/api/edge/anime/42765/genres"
+        }
+      },
+      "categories": {
+        "links": {
+          "self": "https://kitsu.io/api/edge/anime/42765/relationships/categories",
+          "related": "https://kitsu.io/api/edge/anime/42765/categories"
+        }
+      },
+      "castings": {
+        "links": {
+          "self": "https://kitsu.io/api/edge/anime/42765/relationships/castings",
+          "related": "https://kitsu.io/api/edge/anime/42765/castings"
+        }
+      },
+      "installments": {
+        "links": {
+          "self": "https://kitsu.io/api/edge/anime/42765/relationships/installments",
+          "related": "https://kitsu.io/api/edge/anime/42765/installments"
+        }
+      },
+      "mappings": {
+        "links": {
+          "self": "https://kitsu.io/api/edge/anime/42765/relationships/mappings",
+          "related": "https://kitsu.io/api/edge/anime/42765/mappings"
+        }
+      },
+      "reviews": {
+        "links": {
+          "self": "https://kitsu.io/api/edge/anime/42765/relationships/reviews",
+          "related": "https://kitsu.io/api/edge/anime/42765/reviews"
+        }
+      },
+      "mediaRelationships": {
+        "links": {
+          "self": "https://kitsu.io/api/edge/anime/42765/relationships/media-relationships",
+          "related": "https://kitsu.io/api/edge/anime/42765/media-relationships"
+        }
+      },
+      "characters": {
+        "links": {
+          "self": "https://kitsu.io/api/edge/anime/42765/relationships/characters",
+          "related": "https://kitsu.io/api/edge/anime/42765/characters"
+        }
+      },
+      "staff": {
+        "links": {
+          "self": "https://kitsu.io/api/edge/anime/42765/relationships/staff",
+          "related": "https://kitsu.io/api/edge/anime/42765/staff"
+        }
+      },
+      "productions": {
+        "links": {
+          "self": "https://kitsu.io/api/edge/anime/42765/relationships/productions",
+          "related": "https://kitsu.io/api/edge/anime/42765/productions"
+        }
+      },
+      "quotes": {
+        "links": {
+          "self": "https://kitsu.io/api/edge/anime/42765/relationships/quotes",
+          "related": "https://kitsu.io/api/edge/anime/42765/quotes"
+        }
+      },
+      "episodes": {
+        "links": {
+          "self": "https://kitsu.io/api/edge/anime/42765/relationships/episodes",
+          "related": "https://kitsu.io/api/edge/anime/42765/episodes"
+        }
+      },
+      "streamingLinks": {
+        "links": {
+          "self": "https://kitsu.io/api/edge/anime/42765/relationships/streaming-links",
+          "related": "https://kitsu.io/api/edge/anime/42765/streaming-links"
+        }
+      },
+      "animeProductions": {
+        "links": {
+          "self": "https://kitsu.io/api/edge/anime/42765/relationships/anime-productions",
+          "related": "https://kitsu.io/api/edge/anime/42765/anime-productions"
+        }
+      },
+      "animeCharacters": {
+        "links": {
+          "self": "https://kitsu.io/api/edge/anime/42765/relationships/anime-characters",
+          "related": "https://kitsu.io/api/edge/anime/42765/anime-characters"
+        }
+      },
+      "animeStaff": {
+        "links": {
+          "self": "https://kitsu.io/api/edge/anime/42765/relationships/anime-staff",
+          "related": "https://kitsu.io/api/edge/anime/42765/anime-staff"
+        }
+      }
+    }
+  }
+}

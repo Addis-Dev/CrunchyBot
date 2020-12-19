@@ -1,0 +1,1 @@
+java -jar FirstBot-1.0.jar
