@@ -3,6 +3,7 @@ Snake\SnakeGame.class
 main\java\anime\MyTimer.class
 Snake\SnakeGame$eDirection.class
 main\java\anime\AnimeNotification.class
+main\Config.class
 main\java\events\onMessageReceived.class
 main\java\anime\AnimeInfo.class
 main\java\anime\Anime.class
