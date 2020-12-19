@@ -1,1 +1,1 @@
-java -jar FirstBot-1.0.jar
+java -jar CrunchyBot-1.0.jar
