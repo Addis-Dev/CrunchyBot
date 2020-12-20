@@ -1,13 +1,38 @@
 package main.java.anime;
+
 import org.json.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+
+
 import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
-public class Anime {
+// {
+//         Media(search:"Naruto",type:ANIME){
+//         title{
+//         english
+//         }
+//         description
+//         episodes
+//         meanScore
+//         coverImage{
+//         medium
+//         }
+//         nextAiringEpisode{
+//         timeUntilAiring
+//         }
+//         }
+//         }
 
+public class Anime {
+    private static MockMvc mockMvc;
+    @Autowired
     public static HttpURLConnection connection;
     public static HttpClient client = HttpClient.newHttpClient();
 
@@ -16,15 +41,7 @@ public class Anime {
     public static String[] mainPath = {"attributes", "titles", "canonicalTitle"};
     public static String[] defaultPath = {"attributes", "titles", "canonicalTitle"}; ///D ONT CHANGE
 
-    public static void getByHttp(String link){
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create(link)).build();
-        client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
-                .thenApply(HttpResponse::body)
-                .thenApply(Anime::parse)
-                .join();
-        mainPath = defaultPath;
-    }
-    public static void getByHttp(String link,float a){
+    public static void getByHttp(String link, float a) {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create(link)).build();
         client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
                 .thenApply(HttpResponse::body)
@@ -32,110 +49,77 @@ public class Anime {
                 .join();
         mainPath = defaultPath;
     }
-    public static void getByHttp(String link,String path[]) {
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create(link)).build();
-        client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
-                .thenApply(HttpResponse::body)
-                .thenApply(Anime::parse)
-                .join();
-        mainPath = path;
-    }
-    public static void getByHttp(String link,int type,String path[]) {
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create(link)).build();
-        if(type  == 1) {
-            client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
-                    .thenApply(HttpResponse::body)
-                    .thenApply(Anime::parse)
-                    .join();
-        }else if(type == 2){
-            client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
-                    .thenApply(HttpResponse::body)
-                    .thenApply(Anime::fullParse)
-                    .join();
-        }
-        mainPath = path;
-    }
-    public static void getByHttp(String link,int type){
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create(link)).build();
-        if(type  == 1) {
-            client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
-                    .thenApply(HttpResponse::body)
-                    .thenApply(Anime::parse)
-                    .join();
-        }else if(type == 2){
-            client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
-                    .thenApply(HttpResponse::body)
-                    .thenApply(Anime::fullParse)
-                    .join();
-        }
-        mainPath = defaultPath;
-    }
-    public static void getAccessToken(){
-    //"https://kitsu.io/api/oauth"
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("https://kitsu.io/api/oauth")).build();
-        client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
-                .thenApply(HttpResponse::body)
-                .thenApply(Anime::parse)
-                .join();
+
+    public static void getByGraphql() throws Exception {
+        System.out.println("Getting graph");
+        String link = "https://graphql.anilist.co";
+        mockMvc.perform(MockMvcRequestBuilders.post(link)
+                .content("{\"query\":\"{ data { status hint } }\"}")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andReturn();
+        System.out.println("Done");
+
     }
 
-    public static void setLanguage(String language1){
+    public static void setLanguage(String language1) {
         language = language1;
     }
 
-    public static String parse(String res){
+    public static String parse(String res) {
         String name = "No Name";
-        if(res.contains("{\"data\":[{\"id\":")){
+        if (res.contains("{\"data\":[{\"id\":")) {
             System.out.println("Is an array");
 
             JSONObject json = new JSONObject(res);
             JSONArray data = json.getJSONArray("data");
             JSONObject first = data.getJSONObject(0);
-            for(int i = 0; i < mainPath.length-1; i ++){
-                System.out.println("main path is"+mainPath[i]);
+            for (int i = 0; i < mainPath.length - 1; i++) {
+                System.out.println("main path is" + mainPath[i]);
                 first = first.getJSONObject(mainPath[i]);
                 System.out.println("foorloop");
             }
             System.out.println("foorloop done");
 
-            name =  first.getString(mainPath[mainPath.length-1]);
+            name = first.getString(mainPath[mainPath.length - 1]);
             response = name;
 
             System.out.println("Name is :" + name);
-        }else {
+        } else {
             System.out.println("Is not an array");
 
             JSONObject first = new JSONObject(res);
             for (int i = 0; i < mainPath.length - 1; i++) {
                 System.out.println("main path is" + mainPath[i]);
-                if(mainPath[i].equalsIgnoreCase("en")) {
+                if (mainPath[i].equalsIgnoreCase("en")) {
 
                 }
                 first = first.getJSONObject(mainPath[i]);
             }
-            name =  first.getString(mainPath[mainPath.length-1]);
+            name = first.getString(mainPath[mainPath.length - 1]);
 
             response = name;
         }
-        System.out.println("Parsed:"+name);
+        System.out.println("Parsed:" + name);
         return name;
     }
-    public static String fullParse(String res){
+
+    public static String fullParse(String res) {
         String name = "No Name";
-        for(int i = 0; i < mainPath.length; i ++){
+        for (int i = 0; i < mainPath.length; i++) {
             System.out.println(mainPath[i]);
         }
-        if(res.contains("{\"data\":[{\"id\":")){
+        if (res.contains("{\"data\":[{\"id\":")) {
             System.out.println("Is an array");
             JSONArray arr = new JSONArray(res);
 
             JSONObject first = arr.getJSONObject(0);
-            for(int i = 0; i < mainPath.length-1; i ++){
-                System.out.println("main path is"+mainPath[i]);
+            for (int i = 0; i < mainPath.length - 1; i++) {
+                System.out.println("main path is" + mainPath[i]);
                 first = first.getJSONObject(mainPath[i]);
             }
-            name =  first.getString(mainPath[mainPath.length-1]);
-        }else {
+            name = first.getString(mainPath[mainPath.length - 1]);
+        } else {
             System.out.println("Is not an array");
 
             JSONObject first = new JSONObject(res);
@@ -144,13 +128,14 @@ public class Anime {
                 System.out.println("main path is" + mainPath[i]);
                 first = first.getJSONObject(mainPath[i]);
             }
-            name =  first.getString(mainPath[mainPath.length-1]);
+            name = first.getString(mainPath[mainPath.length - 1]);
             response = name;
         }
-        System.out.println("Parsed:"+name);
+        System.out.println("Parsed:" + name);
         return name;
     }
-    public static String noParse(String res){
+
+    public static String noParse(String res) {
         response = res;
 
         return response;

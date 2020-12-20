@@ -25,7 +25,7 @@ public class AnimeInfo {
     String rating;
     public String slug;
     Boolean completeSeries;
-    LocalDateTime nextEp = LocalDateTime.of(LocalDate.now(),LocalTime.of(18,44));
+    public LocalDateTime nextEp = LocalDateTime.of(LocalDate.now(),LocalTime.of(LocalTime.now().getHour(), 44));
 
     EmbedBuilder eb = new EmbedBuilder();
     StringBuilder stars = new StringBuilder();

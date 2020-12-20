@@ -9,11 +9,15 @@ import net.dv8tion.jda.api.entities.TextChannel;
 import org.w3c.dom.Text;
 
 import java.awt.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class AnimeNotification {
@@ -29,8 +33,9 @@ public class AnimeNotification {
     EmbedBuilder eb = new EmbedBuilder();
 
     Boolean startPing = false;
-    TimerTask task = new MyTimer(this,eb);
-    Timer timer = new Timer();
+    public ScheduledExecutorService timer = Executors.newScheduledThreadPool(1);
+
+    TimerTask checkDate = new CheckDate(this,eb);
     public AnimeNotification(String name, LocalDateTime release, Message msg){
         this.name = name;
         this.release = release;
@@ -44,8 +49,6 @@ public class AnimeNotification {
         eb.setColor(Color.ORANGE);
         eb.setDescription("The Latest Episode of "+ name +" is Out Now!");
         eb.setThumbnail(thumbnail);
-
-
     }
     public void setMessage(Message message){
         this.message = message;
@@ -63,7 +66,7 @@ public class AnimeNotification {
 
     public void addMember(Member member){
         if(membersList.size() == 0){
-            timer.schedule(task,1000,20000);
+            timer.schedule(checkDate,10, TimeUnit.SECONDS); // every minute
         }
         membersList.add(member);
         startPing = true;
@@ -72,37 +75,84 @@ public class AnimeNotification {
         membersList.remove(member);
         if(membersList.size() == 0){
             startPing = false;
-            task.cancel();
-            timer.cancel();
+            checkDate.cancel();
+           timer.shutdown();
         }
     }
     public void setRelease(LocalDateTime release){
         this.release = release;
     }
-
 }
 
-class MyTimer extends TimerTask{
+class CheckDate extends TimerTask{
     EmbedBuilder eb;
     AnimeNotification notification;
-    public MyTimer(AnimeNotification notification,EmbedBuilder eb){
+    public CheckDate(AnimeNotification notification,EmbedBuilder eb){
+        this.eb = eb;
+        this.notification = notification;
+        System.out.println("start");
+    }
+
+    @Override
+    public void run() {
+        if(notification.startPing) {
+            System.out.println("notification date:" + notification.release.toLocalDate().getDayOfWeek());
+            System.out.println("now date:" + LocalDate.now().getDayOfWeek());
+
+            if (notification.release.toLocalDate().getDayOfWeek().equals(LocalDate.now().getDayOfWeek())) {
+                System.out.println("This day");
+                TimerTask task = new CheckHour(notification, eb);
+                ScheduledExecutorService timer = Executors.newScheduledThreadPool(1);
+                timer.schedule(task,10,TimeUnit.SECONDS);
+                this.cancel();
+            }
+        }
+    }
+}
+
+class CheckHour extends TimerTask{
+    EmbedBuilder eb;
+    AnimeNotification notification;
+    public CheckHour(AnimeNotification notification,EmbedBuilder eb){
         this.eb = eb;
         this.notification = notification;
     }
 
     @Override
     public void run() {
-        if(notification.startPing) {
-            StringBuilder stringBuilder = new StringBuilder();
-            for(Member member :notification.membersList) {
-                stringBuilder.append(" ").append(member.getAsMention());
+        if( notification.release.toLocalTime().getHour() == LocalTime.now().getHour()){
+           System.out.println("This hour");
+            TimerTask task = new CheckMin(notification,eb);
+            ScheduledExecutorService timer = Executors.newScheduledThreadPool(1);
+            timer.schedule(task,10,TimeUnit.SECONDS);
+            this.cancel();
+
+        }
+    }
+}
+class CheckMin extends TimerTask{
+    EmbedBuilder eb;
+    AnimeNotification notification;
+    public CheckMin(AnimeNotification notification,EmbedBuilder eb){
+        this.eb = eb;
+        this.notification = notification;
+    }
+    @Override
+    public void run() {
+        if(notification.release.toLocalTime().getMinute() == LocalTime.now().getMinute()){
+            System.out.println("This Min");
+            if(notification.startPing) {
+                StringBuilder stringBuilder = new StringBuilder();
+                for(Member member :notification.membersList) {
+                    stringBuilder.append(" ").append(member.getAsMention());
+                }
+                notification.channel.sendMessage(stringBuilder).queue(message -> {
+                    message.delete().queueAfter(1,TimeUnit.MILLISECONDS);
+                });
+                notification.channel.sendMessage(eb.build()).queue(message -> {
+                    message.delete().queueAfter(1, TimeUnit.MINUTES);
+                });
             }
-            notification.channel.sendMessage(stringBuilder).queue(message -> {
-                message.delete().queueAfter(1,TimeUnit.MILLISECONDS);
-            });
-            notification.channel.sendMessage(eb.build()).queue(message -> {
-                message.delete().queueAfter(1, TimeUnit.MINUTES);
-            });
         }
     }
 }

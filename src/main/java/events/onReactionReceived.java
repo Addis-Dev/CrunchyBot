@@ -4,22 +4,13 @@ import main.java.anime.AnimeNotification;
 import main.java.firstbot.Bot;
 import Snake.SnakeGame;
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.JDA;
-import net.dv8tion.jda.api.entities.*;
+
+import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionAddEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
-import net.dv8tion.jda.api.requests.RestAction;
-import net.dv8tion.jda.api.requests.restaction.AuditableRestAction;
-import net.dv8tion.jda.api.requests.restaction.MessageAction;
-import net.dv8tion.jda.api.requests.restaction.pagination.ReactionPaginationAction;
-import org.apache.commons.collections4.Bag;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+
 
 import java.awt.*;
-import java.time.OffsetDateTime;
-import java.util.EnumSet;
-import java.util.Formatter;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -27,6 +18,10 @@ import java.util.concurrent.TimeUnit;
 public class onReactionReceived extends ListenerAdapter {
 
     public void onGuildMessageReactionAdd(GuildMessageReactionAddEvent e){
+        if (!e.getGuild().getSelfMember().hasPermission(Permission.ADMINISTRATOR)){
+            e.getChannel().sendMessage("Please give me Admin dickhead").queue();
+            return;
+        }
         System.out.println(e.getReaction());
         List<SnakeGame> snakeGameList = Bot.getSnakeGames();
         EmbedBuilder eb = new EmbedBuilder();
